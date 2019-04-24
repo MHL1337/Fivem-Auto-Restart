@@ -55,23 +55,9 @@ namespace Fivem_auto_restart
                     lang = Console.ReadLine();
 
                     //Main menu starts here
-                    switch (lang)
+                    switch (lang.ToLower())
                     {
                         case "!hjälp":
-                            Console.Clear();
-                            Console.WriteLine("Nuvarande version: v1.0");
-                            Console.WriteLine("Det här är dom tillgängliga kommandsen: !start and !help");
-                            Console.WriteLine("Min github sida: https://github.com/MHL1337 där kan du hitta dom senaste uppdateringarna + mer hjälp");
-                            Console.WriteLine(" ");
-                            Console.WriteLine("Fråga: Jag har redan ställt in programmet 1 gång. Varför hamnar jag i menyn?");
-                            Console.WriteLine("Svar: Se till att du öppnar programmet som administrator. Se även till att ditt anti-virus inte blockerar programmet.");
-                            Console.WriteLine(" ");
-                            Console.WriteLine("Fråga: Programmet funkar inte!!");
-                            Console.WriteLine("Svar: Se till att din exe fil ligger i samma map som din run.bat (eller start.bat)");
-                            Console.ReadKey();
-                            retry = true;
-                            break;
-                        case "!Hjälp":
                             Console.Clear();
                             Console.WriteLine("Nuvarande version: v1.0");
                             Console.WriteLine("Det här är dom tillgängliga kommandsen: !start and !help");
@@ -98,24 +84,7 @@ namespace Fivem_auto_restart
                             Console.WriteLine("Answer: Make sure the exe is in the same folder as the run.bat is! (or the start.bat)");
                             Console.ReadKey();
                             break;
-                        case "!Help":
-                            Console.Clear();
-                            Console.WriteLine("Current version: v1.0");
-                            Console.WriteLine("These are the available commands: !start and !help");
-                            Console.WriteLine("My github profile: https://github.com/MHL1337 where you can find the latest uppdates + more help!");
-                            Console.WriteLine(" ");
-                            Console.WriteLine("Question: I have already done the setup once. Why do i have to do it again?");
-                            Console.WriteLine("Answer: Make sure you open the exe with administrator rights. Also, make sure your anti-virus is not blocking the exe.");
-                            Console.WriteLine(" ");
-                            Console.WriteLine("Question: It WONT WORK!!");
-                            Console.WriteLine("Answer: Make sure the exe is in the same folder as the run.bat is! (or the start.bat)");
-                            Console.ReadKey();
-                            break;
                         case "!start":
-                            Console.Clear();
-                            retry = false;
-                            break;
-                        case "!Start":
                             Console.Clear();
                             retry = false;
                             break;
@@ -148,52 +117,16 @@ namespace Fivem_auto_restart
                     Console.Write("Choose your language (SV/EN): ");
                     lang = Console.ReadLine();
 
-                    switch (lang)
+                    switch (lang.ToLower())
                     {
-                        case "EN":
-                            Console.Clear();
-                            Console.WriteLine("How many hours should pass before every restart?");
-                            restart = Console.ReadLine();
-                            retry = false;
-                            break;
                         case "en":
                             Console.Clear();
                             Console.WriteLine("How many hours should pass before every restart?");
                             restart = Console.ReadLine();
                             retry = false;
                             break;
-                        case "En":
-                            Console.Clear();
-                            Console.WriteLine("How many hours should pass before every restart?");
-                            restart = Console.ReadLine();
-                            retry = false;
-                            break;
-                        case "eN":
-                            Console.Clear();
-                            Console.WriteLine("How many hours should pass before every restart?");
-                            restart = Console.ReadLine();
-                            retry = false;
-                            break;
 
-                        case "SV":
-                            Console.Clear();
-                            Console.WriteLine("Hur många timmar ska det gå innan varje restart?");
-                            restart = Console.ReadLine();
-                            retry = false;
-                            break;
-                        case "Sv":
-                            Console.Clear();
-                            Console.WriteLine("Hur många timmar ska det gå innan varje restart?");
-                            restart = Console.ReadLine();
-                            retry = false;
-                            break;
                         case "sv":
-                            Console.Clear();
-                            Console.WriteLine("Hur många timmar ska det gå innan varje restart?");
-                            restart = Console.ReadLine();
-                            retry = false;
-                            break;
-                        case "sV":
                             Console.Clear();
                             Console.WriteLine("Hur många timmar ska det gå innan varje restart?");
                             restart = Console.ReadLine();
