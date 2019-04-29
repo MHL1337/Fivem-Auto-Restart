@@ -12,7 +12,6 @@ namespace Fivem_auto_restart
     {
         public static string time;
         public static string countdown;
-        public static string processstart;
 
 
         public static void Main(string[] args)
@@ -23,35 +22,75 @@ namespace Fivem_auto_restart
             string path = "restartsettings.txt";
             string lang;
             var retry = true;
+            var retry2 = true;
             //Strings end here
 
             if (Directory.Exists(directory) && File.Exists(path)) //If directory exist.
             {
                 string[] lines = File.ReadAllLines(path, Encoding.UTF8);
-                while (true)
+                if (lines[0] == "en")
                 {
                     while (true)
                     {
-                        time = DateTime.Now.ToString("HH:mm:ss");
-                        Thread.Sleep(1000);
-                        Console.Clear();
-                        Console.WriteLine("You are all set!");
-                        Console.WriteLine("Current time: " + time);
-                        Console.WriteLine("Next restart: " + countdown);
-                        if (time == lines[0] || time == lines[1])
+                        while (retry2 == true)
                         {
-                            break;
-                        }
-                    }
-                    Console.Clear();
-                    Console.WriteLine("Restarting");
-                    foreach (Process proc in Process.GetProcessesByName("cmd"))
-                    {
-                        proc.Kill();
-                    }
-                    Process.Start("cmd.exe");
-                    Thread.Sleep(3000);
+                            time = DateTime.Now.ToString("HH:mm:ss");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                            Console.WriteLine("You are all set!");
+                            Console.WriteLine("Current time: " + time);
+                            Console.WriteLine("Next restart: " + countdown);
+                            for (int k = 0; k < 25; k++)
+                            {
+                                if (time == lines[k])
+                                {
+                                    retry2 = false;
+                                }
+                            }
 
+                        }
+                        Console.Clear();
+                        Console.WriteLine("Restarting...");
+                        foreach (Process proc in Process.GetProcessesByName("cmd"))
+                        {
+                            proc.Kill();
+                        }
+                        Process.Start("cmd.exe").Close();
+                        Thread.Sleep(3000);
+                        retry2 = true;
+                    }
+                }
+                else
+                {
+                    while (true)
+                    {
+                        while (retry2 == true)
+                        {
+                            time = DateTime.Now.ToString("HH:mm:ss");
+                            Thread.Sleep(1000);
+                            Console.Clear();
+                            Console.WriteLine("Bra jobbat! Nu kan du luta dig tillbaka och programmet sköter allt!");
+                            Console.WriteLine("Aktuell tid: " + time);
+                            Console.WriteLine("Nästa restart: " + countdown);
+                            for (int k = 0; k < 25; k++)
+                            {
+                                if (time == lines[k])
+                                {
+                                    retry2 = false;
+                                }
+                            }
+
+                        }
+                        Console.Clear();
+                        Console.WriteLine("Startar om...");
+                        foreach (Process proc in Process.GetProcessesByName("cmd"))
+                        {
+                            proc.Kill();
+                        }
+                        Process.Start("start.bat").Close();
+                        Thread.Sleep(3000);
+                        retry2 = true;
+                    }
                 }
             }
 
@@ -151,6 +190,25 @@ namespace Fivem_auto_restart
                             Console.Clear();
                             Console.WriteLine("How many hours should pass before every restart?");
                             restarts = Console.ReadLine();
+                            using (StreamWriter writer = new StreamWriter(path))
+                            {
+                                writer.WriteLine("en");
+                                for (int i = 0; i < 25; i = i + Convert.ToInt32(restarts))
+                                {
+                                    if (i < 10)
+                                    {
+                                        writer.WriteLine("0" + i + ":00" + ":00");
+                                    }
+                                    else
+                                    {
+                                        writer.WriteLine(i + ":00" + ":00");
+                                    }
+                                }
+                            }
+                            
+                            Console.Clear();
+                            Console.WriteLine("Congrats! You have now configured the restarts! Restart the program to start!");
+                            Console.ReadKey();
                             retry = false;
                             break;
 
@@ -158,31 +216,25 @@ namespace Fivem_auto_restart
                             Console.Clear();
                             Console.WriteLine("Hur många timmar ska det gå innan varje restart?");
                             restarts = Console.ReadLine();
-                            switch (restarts)
+                            using (StreamWriter writer = new StreamWriter(path))
                             {
-                                case "1":
-                                    using (StreamWriter writer = new StreamWriter(path))
+                                writer.WriteLine("sv");
+                                for (int i = 0; i < 25; i = i + Convert.ToInt32(restarts))
+                                {
+                                    if (i < 10)
                                     {
-                                        writer.WriteLine("sv");
-                                        for (int i = 0; i < 25;  i++)
-                                        {
-                                            if (i < 10)
-                                            {
-                                                writer.WriteLine("0" + i + ":00" + ":00");
-                                            }
-                                            else
-                                            {
-                                                writer.WriteLine(i + ":00" + ":00");
-                                            }
-                                        }
+                                        writer.WriteLine("0" + i + ":00" + ":00");
                                     }
-                                    break;
-                                case "2":
-
-                                    break;
+                                    else
+                                    {
+                                        writer.WriteLine(i + ":00" + ":00");
+                                    }
+                                }
                             }
+
                             Console.Clear();
                             Console.WriteLine("Du har konfigurerat klart nu! Var god och öppna och stäng appen!");
+                            Console.ReadKey();
                             retry = false;
                             break;
 
