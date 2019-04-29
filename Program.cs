@@ -40,7 +40,8 @@ namespace Fivem_auto_restart
                             Console.WriteLine("You are all set!");
                             Console.WriteLine("Current time: " + time);
                             Console.WriteLine("Next restart: " + countdown);
-                            for (int k = 0; k < 25; k++)
+                            int L = File.ReadAllLines(path).Count();
+                            for (int k = 1; k < L; k++)
                             {
                                 if (time == lines[k])
                                 {
@@ -72,14 +73,15 @@ namespace Fivem_auto_restart
                             Console.WriteLine("Bra jobbat! Nu kan du luta dig tillbaka och programmet sköter allt!");
                             Console.WriteLine("Aktuell tid: " + time);
                             Console.WriteLine("Nästa restart: " + countdown);
-                            for (int k = 0; k < 25; k++)
+                            int L = File.ReadAllLines(path).Count();
+
+                            for (int k = 1; k < L; k++)
                             {
                                 if (time == lines[k])
                                 {
                                     retry2 = false;
                                 }
                             }
-
                         }
                         Console.Clear();
                         Console.WriteLine("Startar om...");
@@ -87,7 +89,7 @@ namespace Fivem_auto_restart
                         {
                             proc.Kill();
                         }
-                        Process.Start("start.bat").Close();
+                        Process.Start("cmd.exe").Close();
                         Thread.Sleep(3000);
                         retry2 = true;
                     }
