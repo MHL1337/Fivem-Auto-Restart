@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,41 +11,54 @@ namespace Fivem_auto_restart
     class Program
     {
         public static string time;
+        public static string countdown;
+        public static string processstart;
+
 
         public static void Main(string[] args)
         {
             //Strings and var(s)
-            string restart = "";
+            string restarts;
             string directory = AppDomain.CurrentDomain.BaseDirectory;
             string path = "restartsettings.txt";
             string lang;
             var retry = true;
             //Strings end here
-            
 
             if (Directory.Exists(directory) && File.Exists(path)) //If directory exist.
             {
+                string[] lines = File.ReadAllLines(path, Encoding.UTF8);
                 while (true)
                 {
-                    time = DateTime.Now.ToString("HH:mm:ss");
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                    Console.WriteLine("You are all set!");
-                    Console.WriteLine("Next restart: " + time);
-                    if (time == "13:42:20")
+                    while (true)
                     {
-                        break;
+                        time = DateTime.Now.ToString("HH:mm:ss");
+                        Thread.Sleep(1000);
+                        Console.Clear();
+                        Console.WriteLine("You are all set!");
+                        Console.WriteLine("Current time: " + time);
+                        Console.WriteLine("Next restart: " + countdown);
+                        if (time == lines[0] || time == lines[1])
+                        {
+                            break;
+                        }
                     }
+                    Console.Clear();
+                    Console.WriteLine("Restarting");
+                    foreach (Process proc in Process.GetProcessesByName("cmd"))
+                    {
+                        proc.Kill();
+                    }
+                    Process.Start("cmd.exe");
+                    Thread.Sleep(3000);
+
                 }
-                Console.Clear();
-                Console.WriteLine("epa");
-                Console.ReadKey();
             }
 
 
             if (Directory.Exists(directory) && !File.Exists(path))
             {
-                File.Create(path);
+                File.Create(path).Close();
                 while (retry == true)
                 {
                     //Welcome etc
@@ -136,14 +150,39 @@ namespace Fivem_auto_restart
                         case "en":
                             Console.Clear();
                             Console.WriteLine("How many hours should pass before every restart?");
-                            restart = Console.ReadLine();
+                            restarts = Console.ReadLine();
                             retry = false;
                             break;
 
                         case "sv":
                             Console.Clear();
                             Console.WriteLine("Hur många timmar ska det gå innan varje restart?");
-                            restart = Console.ReadLine();
+                            restarts = Console.ReadLine();
+                            switch (restarts)
+                            {
+                                case "1":
+                                    using (StreamWriter writer = new StreamWriter(path))
+                                    {
+                                        writer.WriteLine("sv");
+                                        for (int i = 0; i < 25;  i++)
+                                        {
+                                            if (i < 10)
+                                            {
+                                                writer.WriteLine("0" + i + ":00" + ":00");
+                                            }
+                                            else
+                                            {
+                                                writer.WriteLine(i + ":00" + ":00");
+                                            }
+                                        }
+                                    }
+                                    break;
+                                case "2":
+
+                                    break;
+                            }
+                            Console.Clear();
+                            Console.WriteLine("Du har konfigurerat klart nu! Var god och öppna och stäng appen!");
                             retry = false;
                             break;
 
