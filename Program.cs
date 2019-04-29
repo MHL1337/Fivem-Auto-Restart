@@ -85,11 +85,11 @@ namespace Fivem_auto_restart
                         }
                         Console.Clear();
                         Console.WriteLine("Startar om...");
-                        foreach (Process proc in Process.GetProcessesByName("cmd"))
+                        foreach (Process proc in Process.GetProcessesByName("FXServer"))
                         {
                             proc.Kill();
                         }
-                        Process.Start("cmd.exe").Close();
+                        Process.Start("start.bat").Close();
                         Thread.Sleep(3000);
                         retry2 = true;
                     }
