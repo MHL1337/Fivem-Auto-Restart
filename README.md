@@ -2,11 +2,12 @@ Free open source restarter for FiveM, you can change the process name in the sou
 
 HOW TO INSTALL:
 
-●[Download](https://github.com/MHL1337/Fivem-Auto-Restart/raw/master/Fivem%20auto%20restart.exe) the finished exe file. Or compile it yourself.
+1. [Download](https://github.com/MHL1337/Fivem-Auto-Restart/raw/master/Fivem%20auto%20restart.exe) the finished exe file. Or compile it yourself.
 
-●Drag the exe file to your FiveM server map. Or where you keep your run.bat to the server.
+2. Drag the exe file to your FiveM server map. Or where you keep your run.bat to the server.
 
-●Make sure the run.bat file is called "start.bat"
+2. Make sure the run.bat file is called "start.bat"
+3. And you are done! Now just follow the steps in the application!
 
 Frequently Asked Questions:
 
